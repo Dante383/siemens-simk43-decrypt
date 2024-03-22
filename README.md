@@ -12,6 +12,7 @@ Decryption:
 Output will be saved to <filename>_decrypted.bin
 
 Encryption:
+
 	python3 decrypt.py e <filename>
 Output will be saved to <filename>_encrypted.SIE
 
