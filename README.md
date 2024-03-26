@@ -18,8 +18,23 @@ Output will be saved to <filename>_encrypted.SIE
 
 ## How does it work? 
 
-Analyzing the pattern from the lookup table it seems like there is some bit-flip operation going on with an extra twist but there wasn't any need to go any further.
+In SIMK41/43's case, EEPROM data lines are crossed. Due to this, in every pair of bytes, bits are switched as so: 
 
-Encryption is treated as a substitution cipher with 2 byte long keys. A binary file counting up from 0x0000 to 0xFFFF was generated (available in tools/reference_plain.bin)
-and encrypted (tools/reference_encrypted.SIE). Then, the build_lookup_table.py script was used to read both files 2 bytes at a time and generate the 65k entry-long lookup table.
-You should be able to use this approach with other _encryption_ mechanisms from that era.
+	0  -  3
+	1  -  11
+	2  -  2
+	3  -  10
+	4  -  1
+	5  -  9
+	6  -  0
+	7  -  8
+	8  -  12
+	9  -  4
+	10  -  13
+	11  -  5
+	12  -  14
+	13  -  6
+	14  -  15
+	15  -  7
+
+In hardware variant 5WY19, there's a NXP 74HCT574D chip on the PCB responsible for unscrambling the data.
