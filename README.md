@@ -38,3 +38,5 @@ In SIMK41/43's case, EEPROM data lines are crossed. Due to this, in every pair o
 	15  -  7
 
 In hardware variant 5WY19, there's a NXP 74HCT574D chip on the PCB responsible for unscrambling the data.
+
+For more information about SIMK41/SIMK43 ECUs, visit https://opengk.org
