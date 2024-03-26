@@ -1,6 +1,34 @@
 import sys, array
 from pathlib import Path
 
+LOOKUP_TABLE = {
+        0: 3,
+        1: 11,
+        2: 2,
+        3: 10,
+        4: 1,
+        5: 9,
+        6: 0,
+        7: 8,
+        8: 12,
+        9: 4,
+        10: 13,
+        11: 5,
+        12: 14,
+        13: 6,
+        14: 15,
+        15: 7
+}
+
+def decodeWord(inw, lut):
+    result = 0
+
+    for i in range(16):
+        if inw & (1 << i) != 0:
+            result += 1 << lut[i]
+
+    return result
+
 def process (input_filename, output_filename, lut):
 	with open(input_filename, 'rb') as file:
 		with open(output_filename, 'wb') as output:
@@ -9,7 +37,7 @@ def process (input_filename, output_filename, lut):
 				if not chunk:
 					break
 
-				decoded = lut[int.from_bytes(chunk, "big")]
+				decoded = decodeWord(int.from_bytes(chunk, "big"), lut)
 				output.write(decoded.to_bytes(2, "big"))
 	print('Saved to {}'.format(output_filename))
 
@@ -26,12 +54,6 @@ if __name__ == '__main__':
 		print_help()
 
 	input_filename = sys.argv[2]
-
-	LOOKUP_RAW = array.array("H")
-	with Path(__file__).with_name('lut.bin').open('rb') as lutfile:
-		LOOKUP_RAW.fromfile(lutfile, 65536)
-
-	LOOKUP_TABLE = {i: v for i,v in enumerate(LOOKUP_RAW)}
 
 	if (sys.argv[1] == 'd'): # decrypt
 		output_filename = '.'.join(input_filename.split('.')[:-1]) + '_decrypted.bin'
