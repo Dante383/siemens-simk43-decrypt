@@ -20,7 +20,7 @@ LOOKUP_TABLE = {
         15: 7
 }
 
-def decodeWord(inw, lut):
+def decode_word(inw, lut):
     result = 0
 
     for i in range(16):
