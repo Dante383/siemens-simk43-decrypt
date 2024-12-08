@@ -37,7 +37,7 @@ def process (input_filename, output_filename, lut):
 				if not chunk:
 					break
 
-				decoded = decodeWord(int.from_bytes(chunk, "big"), lut)
+				decoded = decode_word(int.from_bytes(chunk, "big"), lut)
 				output.write(decoded.to_bytes(2, "big"))
 	print('Saved to {}'.format(output_filename))
 
